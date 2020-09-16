@@ -1,0 +1,261 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Welcome To Colaboratory",
+      "provenance": [],
+      "collapsed_sections": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sachinkatageri/open-weather-project/blob/master/Using%20pretrained%20model%20for%20classifying%20weather%20type%20based%20on%20images%20AIMONK\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "aqEt8eU9myuy",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 819
+        },
+        "outputId": "de06652c-e2d6-46fa-eab0-089727b68396"
+      },
+      "source": [
+        "pip install -U monk-colab"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Collecting monk-colab\n",
+            "\u001b[?25l  Downloading https://files.pythonhosted.org/packages/f0/0e/04b6ca6b11ef8742c9c041cf043ae1708d003b61d9a1646efb269e8fb489/monk_colab-0.0.1-py3-none-any.whl (515kB)\n",
+            "\r\u001b[K     |▋                               | 10kB 15.6MB/s eta 0:00:01\r\u001b[K     |█▎                              | 20kB 2.8MB/s eta 0:00:01\r\u001b[K     |██                              | 30kB 3.4MB/s eta 0:00:01\r\u001b[K     |██▌                             | 40kB 3.9MB/s eta 0:00:01\r\u001b[K     |███▏                            | 51kB 3.3MB/s eta 0:00:01\r\u001b[K     |███▉                            | 61kB 3.4MB/s eta 0:00:01\r\u001b[K     |████▌                           | 71kB 3.9MB/s eta 0:00:01\r\u001b[K     |█████                           | 81kB 4.1MB/s eta 0:00:01\r\u001b[K     |█████▊                          | 92kB 3.9MB/s eta 0:00:01\r\u001b[K     |██████▍                         | 102kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████                         | 112kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████▋                        | 122kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████▎                       | 133kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████                       | 143kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████▌                      | 153kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████▏                     | 163kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████▉                     | 174kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████▌                    | 184kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████                    | 194kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████▊                   | 204kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████▍                  | 215kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████                  | 225kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████▋                 | 235kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████▎                | 245kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████                | 256kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████▌               | 266kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████████▏              | 276kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████████▉              | 286kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████████▌             | 296kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████             | 307kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████▊            | 317kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████████▍           | 327kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████████████           | 337kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████████████▋          | 348kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████████████▎         | 358kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████████         | 368kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████████▌        | 378kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████████████▏       | 389kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████████████▉       | 399kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████████████████▌      | 409kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████████████████      | 419kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████████████████▊     | 430kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████████████▍    | 440kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████████████████    | 450kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████████████████▋   | 460kB 4.3MB/s eta 0:00:01\r\u001b[K     |█████████████████████████████▎  | 471kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████████████████████  | 481kB 4.3MB/s eta 0:00:01\r\u001b[K     |██████████████████████████████▌ | 491kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████████████████▏| 501kB 4.3MB/s eta 0:00:01\r\u001b[K     |███████████████████████████████▉| 512kB 4.3MB/s eta 0:00:01\r\u001b[K     |████████████████████████████████| 522kB 4.3MB/s \n",
+            "\u001b[?25hCollecting pylg\n",
+            "  Downloading https://files.pythonhosted.org/packages/6c/15/20e454f122d87e4088803be527de8566468608c55645b573f702e11cb63c/PyLg-1.3.3-py3-none-any.whl\n",
+            "Collecting gluoncv\n",
+            "\u001b[?25l  Downloading https://files.pythonhosted.org/packages/b8/d7/74b530c461ac3eb90f6045a645a59450de1f3d616a4926e371daa021dbd8/gluoncv-0.8.0-py2.py3-none-any.whl (810kB)\n",
+            "\u001b[K     |████████████████████████████████| 819kB 10.4MB/s \n",
+            "\u001b[?25hCollecting GPUtil\n",
+            "  Downloading https://files.pythonhosted.org/packages/ed/0e/5c61eedde9f6c87713e89d794f01e378cfd9565847d4576fa627d758c554/GPUtil-1.4.0.tar.gz\n",
+            "Collecting mxnet-cu101\n",
+            "\u001b[?25l  Downloading https://files.pythonhosted.org/packages/40/26/9655677b901537f367c3c473376e4106abc72e01a8fc25b1cb6ed9c37e8c/mxnet_cu101-1.7.0-py2.py3-none-manylinux2014_x86_64.whl (846.0MB)\n",
+            "\u001b[K     |███████████████████████████████▌| 834.1MB 1.3MB/s eta 0:00:10tcmalloc: large alloc 1147494400 bytes == 0x39270000 @  0x7fd38127c615 0x591f47 0x4cc229 0x4cc38b 0x50a51c 0x50c1f4 0x507f24 0x509c50 0x50a64d 0x50c1f4 0x507f24 0x509c50 0x50a64d 0x50cfd6 0x58e793 0x50c467 0x58e793 0x50c467 0x58e793 0x50c467 0x58e793 0x50c467 0x509918 0x50a64d 0x50c1f4 0x507f24 0x509c50 0x50a64d 0x50c1f4 0x509918 0x50a64d\n",
+            "\u001b[K     |████████████████████████████████| 846.0MB 19kB/s \n",
+            "\u001b[?25hRequirement already satisfied, skipping upgrade: numpy in /usr/local/lib/python3.6/dist-packages (from gluoncv->monk-colab) (1.18.5)\n",
+            "Requirement already satisfied, skipping upgrade: tqdm in /usr/local/lib/python3.6/dist-packages (from gluoncv->monk-colab) (4.41.1)\n",
+            "Requirement already satisfied, skipping upgrade: Pillow in /usr/local/lib/python3.6/dist-packages (from gluoncv->monk-colab) (7.0.0)\n",
+            "Requirement already satisfied, skipping upgrade: requests in /usr/local/lib/python3.6/dist-packages (from gluoncv->monk-colab) (2.23.0)\n",
+            "Requirement already satisfied, skipping upgrade: scipy in /usr/local/lib/python3.6/dist-packages (from gluoncv->monk-colab) (1.4.1)\n",
+            "Collecting portalocker\n",
+            "  Downloading https://files.pythonhosted.org/packages/89/a6/3814b7107e0788040870e8825eebf214d72166adf656ba7d4bf14759a06a/portalocker-2.0.0-py2.py3-none-any.whl\n",
+            "Requirement already satisfied, skipping upgrade: matplotlib in /usr/local/lib/python3.6/dist-packages (from gluoncv->monk-colab) (3.2.2)\n",
+            "Collecting graphviz<0.9.0,>=0.8.1\n",
+            "  Downloading https://files.pythonhosted.org/packages/53/39/4ab213673844e0c004bed8a0781a0721a3f6bb23eb8854ee75c236428892/graphviz-0.8.4-py2.py3-none-any.whl\n",
+            "Requirement already satisfied, skipping upgrade: chardet<4,>=3.0.2 in /usr/local/lib/python3.6/dist-packages (from requests->gluoncv->monk-colab) (3.0.4)\n",
+            "Requirement already satisfied, skipping upgrade: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /usr/local/lib/python3.6/dist-packages (from requests->gluoncv->monk-colab) (1.24.3)\n",
+            "Requirement already satisfied, skipping upgrade: certifi>=2017.4.17 in /usr/local/lib/python3.6/dist-packages (from requests->gluoncv->monk-colab) (2020.6.20)\n",
+            "Requirement already satisfied, skipping upgrade: idna<3,>=2.5 in /usr/local/lib/python3.6/dist-packages (from requests->gluoncv->monk-colab) (2.10)\n",
+            "Requirement already satisfied, skipping upgrade: python-dateutil>=2.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib->gluoncv->monk-colab) (2.8.1)\n",
+            "Requirement already satisfied, skipping upgrade: cycler>=0.10 in /usr/local/lib/python3.6/dist-packages (from matplotlib->gluoncv->monk-colab) (0.10.0)\n",
+            "Requirement already satisfied, skipping upgrade: kiwisolver>=1.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib->gluoncv->monk-colab) (1.2.0)\n",
+            "Requirement already satisfied, skipping upgrade: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib->gluoncv->monk-colab) (2.4.7)\n",
+            "Requirement already satisfied, skipping upgrade: six>=1.5 in /usr/local/lib/python3.6/dist-packages (from python-dateutil>=2.1->matplotlib->gluoncv->monk-colab) (1.15.0)\n",
+            "Building wheels for collected packages: GPUtil\n",
+            "  Building wheel for GPUtil (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "  Created wheel for GPUtil: filename=GPUtil-1.4.0-cp36-none-any.whl size=7411 sha256=4b777ea8b62ed6dbfb2963a1455a89ab78fe7d3f5bf1e9d939d86a9f13f073e0\n",
+            "  Stored in directory: /root/.cache/pip/wheels/3d/77/07/80562de4bb0786e5ea186911a2c831fdd0018bda69beab71fd\n",
+            "Successfully built GPUtil\n",
+            "Installing collected packages: pylg, portalocker, gluoncv, GPUtil, graphviz, mxnet-cu101, monk-colab\n",
+            "  Found existing installation: graphviz 0.10.1\n",
+            "    Uninstalling graphviz-0.10.1:\n",
+            "      Successfully uninstalled graphviz-0.10.1\n",
+            "Successfully installed GPUtil-1.4.0 gluoncv-0.8.0 graphviz-0.8.4 monk-colab-0.0.1 mxnet-cu101-1.7.0 portalocker-2.0.0 pylg-1.3.3\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "J32LAJpMndap",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "from monk.pytorch_prototype import prototype"
+      ],
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "VIih68ldoGip",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 674
+        },
+        "outputId": "b5a895d1-e8ec-4ca4-cc22-5cb551bd8b8a"
+      },
+      "source": [
+        "! wget --load-cookies /tmp/cookies.txt \"https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\\1\\n/p')&id=1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g\" -O cls_weather_trained.zip && rm -rf /tmp/cookies.txt"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "--2020-09-16 06:35:55--  https://docs.google.com/uc?export=download&id=1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g\n",
+            "Resolving docs.google.com (docs.google.com)... 74.125.20.102, 74.125.20.100, 74.125.20.101, ...\n",
+            "Connecting to docs.google.com (docs.google.com)|74.125.20.102|:443... connected.\n",
+            "HTTP request sent, awaiting response... 200 OK\n",
+            "Length: unspecified [text/html]\n",
+            "Saving to: ‘STDOUT’\n",
+            "\n",
+            "\r-                       [<=>                 ]       0  --.-KB/s               \r-                       [ <=>                ]   3.18K  --.-KB/s    in 0s      \n",
+            "\n",
+            "2020-09-16 06:35:55 (50.9 MB/s) - written to stdout [3258]\n",
+            "\n",
+            "--2020-09-16 06:35:55--  https://docs.google.com/uc?export=download&confirm=gBQ8&id=1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g\n",
+            "Resolving docs.google.com (docs.google.com)... 74.125.20.102, 74.125.20.100, 74.125.20.101, ...\n",
+            "Connecting to docs.google.com (docs.google.com)|74.125.20.102|:443... connected.\n",
+            "HTTP request sent, awaiting response... 302 Moved Temporarily\n",
+            "Location: https://doc-0g-c4-docs.googleusercontent.com/docs/securesc/lr2uu534p5ui9gaq4e85boujm83c0msr/gothg9iq5j40fnlmvibak95qikab2pde/1600238100000/03883222654250856358/09490925616410135268Z/1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g?e=download [following]\n",
+            "--2020-09-16 06:35:56--  https://doc-0g-c4-docs.googleusercontent.com/docs/securesc/lr2uu534p5ui9gaq4e85boujm83c0msr/gothg9iq5j40fnlmvibak95qikab2pde/1600238100000/03883222654250856358/09490925616410135268Z/1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g?e=download\n",
+            "Resolving doc-0g-c4-docs.googleusercontent.com (doc-0g-c4-docs.googleusercontent.com)... 74.125.195.132, 2607:f8b0:400e:c09::84\n",
+            "Connecting to doc-0g-c4-docs.googleusercontent.com (doc-0g-c4-docs.googleusercontent.com)|74.125.195.132|:443... connected.\n",
+            "HTTP request sent, awaiting response... 302 Found\n",
+            "Location: https://docs.google.com/nonceSigner?nonce=sm91i0u1b109a&continue=https://doc-0g-c4-docs.googleusercontent.com/docs/securesc/lr2uu534p5ui9gaq4e85boujm83c0msr/gothg9iq5j40fnlmvibak95qikab2pde/1600238100000/03883222654250856358/09490925616410135268Z/1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g?e%3Ddownload&hash=ueagge9le3dogomd5irq2h7g2e2hq3j2 [following]\n",
+            "--2020-09-16 06:35:56--  https://docs.google.com/nonceSigner?nonce=sm91i0u1b109a&continue=https://doc-0g-c4-docs.googleusercontent.com/docs/securesc/lr2uu534p5ui9gaq4e85boujm83c0msr/gothg9iq5j40fnlmvibak95qikab2pde/1600238100000/03883222654250856358/09490925616410135268Z/1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g?e%3Ddownload&hash=ueagge9le3dogomd5irq2h7g2e2hq3j2\n",
+            "Connecting to docs.google.com (docs.google.com)|74.125.20.102|:443... connected.\n",
+            "HTTP request sent, awaiting response... 302 Found\n",
+            "Location: https://doc-0g-c4-docs.googleusercontent.com/docs/securesc/lr2uu534p5ui9gaq4e85boujm83c0msr/gothg9iq5j40fnlmvibak95qikab2pde/1600238100000/03883222654250856358/09490925616410135268Z/1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g?e=download&nonce=sm91i0u1b109a&user=09490925616410135268Z&hash=d6rbj68ljdub4qsdvka5acg2g61s9epe [following]\n",
+            "--2020-09-16 06:35:56--  https://doc-0g-c4-docs.googleusercontent.com/docs/securesc/lr2uu534p5ui9gaq4e85boujm83c0msr/gothg9iq5j40fnlmvibak95qikab2pde/1600238100000/03883222654250856358/09490925616410135268Z/1MkDsHcgqtnt3ZzfwYTuEsCd4buDSe9-g?e=download&nonce=sm91i0u1b109a&user=09490925616410135268Z&hash=d6rbj68ljdub4qsdvka5acg2g61s9epe\n",
+            "Connecting to doc-0g-c4-docs.googleusercontent.com (doc-0g-c4-docs.googleusercontent.com)|74.125.195.132|:443... connected.\n",
+            "HTTP request sent, awaiting response... 200 OK\n",
+            "Length: unspecified [application/zip]\n",
+            "Saving to: ‘cls_weather_trained.zip’\n",
+            "\n",
+            "cls_weather_trained     [           <=>      ] 611.65M   110MB/s    in 5.7s    \n",
+            "\n",
+            "2020-09-16 06:36:02 (107 MB/s) - ‘cls_weather_trained.zip’ saved [641365705]\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6ZDv7_bAoLJ5",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "! unzip -qq cls_weather_trained.zip"
+      ],
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6Ju01ciSoQ-L",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 217
+        },
+        "outputId": "7fe2a814-f140-4acd-94ed-b34ba77ee848"
+      },
+      "source": [
+        "gtf = prototype(verbose=1);\n",
+        "gtf.Prototype(\"Project-Weather\", \"Pytorch-Wide-Resnet50\", eval_infer=True);"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Pytorch Version: 1.6.0+cu101\n",
+            "\n",
+            "Model Details\n",
+            "    Loading model - workspace/Project-Weather/Pytorch-Wide-Resnet50/output/models/final\n",
+            "    Model loaded!\n",
+            "\n",
+            "Experiment Details\n",
+            "    Project: Project-Weather\n",
+            "    Experiment: Pytorch-Wide-Resnet50\n",
+            "    Dir: /home/ubuntu/Desktop/cls/workspace/Project-Weather/Pytorch-Wide-Resnet50/\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QsQwE-DuoX0n",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 305
+        },
+        "outputId": "a71bedb2-fe69-44e9-92d5-d373139c7783"
+      },
+      "source": [
+        "img_name = \"workspace/test/test1.jpg\"\n",
+        "predictions = gtf.Infer(img_name=img_name);\n",
+        "from IPython.display import Image\n",
+        "Image(filename=img_name)"
+      ],
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Prediction\n",
+            "    Image name:         workspace/test/test1.jpg\n",
+            "    Predicted class:      cloudy\n",
+            "    Predicted score:      0.9999961853027344\n",
+            "\n"
+          ],
+          "name": "stdout"
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "image/jpeg": "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\n",
+            "text/plain": [
+              "<IPython.core.display.Image object>"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 7
+        }
+      ]
+    }
+  ]
+}
