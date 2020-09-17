@@ -10,6 +10,16 @@
 ## What is machine learning?
 Machine learning adheres to a well-defined process that includes data preparation, algorithm training, machine learning model generation, and finally, making and improving predictions. Machine learning is based on a very general notion that some basic algorithms have the power of finding out something very interesting within data sets. And the best part is that you don’t have to write any code to get this done. Instead, you will be required to provide the algorithm with data, on which it will base its logic.  
 
+
+
+<p align="center"><b>Above Project Details </b></p>
+
+>MonkAI-classifying weather type based on images
+
+>Detecting fraudulent credit card operations with machine learning algorithms
+
+Dataset "https://www.dropbox.com/s/b44o3t3ehmnx2b7/creditcard.csv?dl=1"
+
 <p align="center"><b>Upcoming Projects </b></p>
 
 - Neural Classifier (NLP)
