@@ -18,6 +18,8 @@ Machine learning adheres to a well-defined process that includes data preparatio
 
 >Detecting fraudulent credit card operations with machine learning algorithms
 
+>Sentiment Analysis-Twitter
+
 Dataset "https://www.dropbox.com/s/b44o3t3ehmnx2b7/creditcard.csv?dl=1"
 
 <p align="center"><b>Upcoming Projects </b></p>
