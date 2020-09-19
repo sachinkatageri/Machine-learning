@@ -1,4 +1,4 @@
-<h1 align="center">Interesting Machine Learning Projects</h1>
+
 
 [![Whatsapp: sachinkatageri](https://img.shields.io/badge/-sachinkatageri-%2325D366.svg?&flat-square&logo=whatsapp&logoColor=white&link=https://wa.me/+919632818041)](https://wa.me/+919632818041)
 [![Linkedin: sachinkatageri](https://img.shields.io/badge/-sachinkatageri-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/sachinkatageri/)](https://www.linkedin.com/in/sachinkatageri/)
